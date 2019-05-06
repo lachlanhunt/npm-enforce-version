@@ -1,4 +1,3 @@
-// Exec Sync
 const child_process = require('child_process');
 const fs = require('fs');
 const check = require('./check');
@@ -9,11 +8,11 @@ function execSync(command) {
 }
 
 const version = execSync('npm --version');
-const range = process.argv.slice(2)[0];
+const range = process.argv.slice(2)[0]; // This will be undefined when run as a preinstall hook
 
 try {
     check(version, range);
-    console.log(`Valid version: ${version}`);
+    console.log(`Valid npm version: ${version}`);
 } catch (err) {
     console.error(err);
 }

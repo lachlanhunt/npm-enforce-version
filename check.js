@@ -6,7 +6,7 @@ function readParentPackage() {
     if (!package) {
         throw new Error('No parent package.json found!');
     }
-    
+
     const packageJSON = package.parse();
     const { npm } = packageJSON.engines || { npm: '*' };
     return npm;
