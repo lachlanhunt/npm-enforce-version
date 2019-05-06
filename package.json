@@ -4,7 +4,6 @@
   "description": "NPM package to enforce certain NPM versions on your developers.",
   "main": "index.js",
   "scripts": {
-    "install": "node ./install.js \"$(npm --version)\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
