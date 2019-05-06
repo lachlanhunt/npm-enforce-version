@@ -4,6 +4,7 @@
   "description": "NPM package to enforce certain NPM versions on your developers.",
   "main": "index.js",
   "scripts": {
+    "install": "node ./install.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/hansl/npm-enforce-version",
   "dependencies": {
+    "find-node-modules": "^2.0.0",
     "parent-package-json": "^2.0.1",
     "semver": "^6.0.0"
   }
