@@ -2,7 +2,7 @@ const parentPackage = require('parent-package-json');
 const semver = require('semver');
 
 function readParentPackage() {
-    const package = parentPackage();
+    const package = parentPackage(__dirname);
     if (!package) {
         throw new Error('No parent package.json found!');
     }
