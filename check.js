@@ -1,24 +1,33 @@
+const parentPackage = require('parent-package-json');
+const semver = require('semver');
 
-module.exports = function(v) {
-    var package = require('./package.json');
-    var version = package.version.split('.').map(function(x) { return parseInt(x); });
-    var installedVersion = ('' + v).split('.').map(function(x) { return parseInt(x); });
+function readParentPackage() {
+    const package = parentPackage();
+    if (!package) {
+        throw new Error('No parent package.json found!');
+    }
+    
+    const packageJSON = package.parse();
+    const { npm } = packageJSON.engines || { npm: '*' };
+    return npm;
+}
 
-    var valid = true;
-    for (var i = 0; i < installedVersion.length; i++) {
-        if (installedVersion[i] != installedVersion[i]) {
-            throw "Invalid version: v" + installedVersion.join('.');
-        }
+module.exports = function(version, range = readParentPackage()) {
+    const installedVersion = semver.valid(version);
+    const requiredRange = semver.validRange(range);
 
-        if (installedVersion[i] < version[i]) {
-            valid = false;
-            break;
-        }
+    if (!installedVersion) {
+        throw new Error(`Invalid installed version specified: ${version}`);
     }
 
+    if (!requiredRange) {
+        throw new Error(`Invalid NPM version range specified: ${range}`);
+    }
+
+    console.error(`Verifying npm ${installedVersion} satisfies ${requiredRange}`);
+    const valid = semver.satisfies(installedVersion, requiredRange);
+
     if (!valid) {
-        var message = "Error: this package requires NPM v" + version.join('.') +
-                      ". You have v" + installedVersion.join('.') + " installed.";
-        throw message;
+        throw new Error(`Error: this package requires NPM ${requiredRange}. You have ${installedVersion} + installed.`);
     }
 };

@@ -24,5 +24,7 @@
   },
   "homepage": "https://github.com/hansl/npm-enforce-version",
   "dependencies": {
+    "parent-package-json": "^2.0.1",
+    "semver": "^6.0.0"
   }
 }
