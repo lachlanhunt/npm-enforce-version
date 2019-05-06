@@ -19,7 +19,7 @@ if (!fs.existsSync(hooksDir)) {
 const symlinkPath = path.resolve(hooksDir, "preinstall");
 const symlinkTarget = path.relative(hooksDir, './hooks/preinstall');
 
-if (fs.existsSync(hooksDir)) {
+if (fs.existsSync(symlinkPath)) {
     console.warn("npm preinstall hook already exists, not overwriting.");
 } else {
     fs.symlinkSync(symlinkTarget, symlinkPath);
