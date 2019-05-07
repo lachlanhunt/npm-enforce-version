@@ -21,13 +21,13 @@ module.exports = function(version, range = readParentPackage()) {
     }
 
     if (!requiredRange) {
-        throw new Error(`Invalid NPM version range specified: ${range}`);
+        throw new Error(`Invalid npm version range specified: ${range}`);
     }
 
     console.error(`Verifying npm ${installedVersion} satisfies ${requiredRange}`);
     const valid = semver.satisfies(installedVersion, requiredRange);
 
     if (!valid) {
-        throw new Error(`Error: this package requires NPM ${requiredRange}. You have ${installedVersion} + installed.`);
+        throw new Error(`Error: this package requires npm ${requiredRange}. You have ${installedVersion} + installed.`);
     }
 };
